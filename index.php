@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Incorrect CAPTCHA. Please try again.";
     } else {
         // Check if email exists in the database
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input type="checkbox">
                                     <p>Remember me</p>
                                 </label>
-                                <a href="forget_pass.html" style="color: #efefef;">Forgot password?</a>
+                                <a href="forget_pass.php" style="color: #efefef;">Forgot password?</a>
                             </div>
                             <button class="my_button" type="submit" id="my_button">Log In</button>
                             <p class="text-white"><?php echo $message; ?></p>
