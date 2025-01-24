@@ -1,30 +1,43 @@
 <?php
 // Include the database connection file
-// require_once 'db_connection.php';
+require_once 'db_connection.php';
 
-?>
+$message = "";
 
-<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get POST data
     $generatedCaptcha = $_POST['generatedCaptcha'];
     $userCaptcha = $_POST['captcha'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    // Print values to the browser's console
-    echo "<script>console.log('Generated CAPTCHA: " . $generatedCaptcha . "');</script>";
-    echo "<script>console.log('User CAPTCHA: " . $userCaptcha . "');</script>";
-
-    if (strtoupper($generatedCaptcha) === strtoupper($userCaptcha)) {
-        $message = "CAPTCHA verified successfully!";
-    } else {
+    // Validate CAPTCHA
+    if (strtoupper($generatedCaptcha) !== strtoupper($userCaptcha)) {
         $message = "Incorrect CAPTCHA. Please try again.";
+    } else {
+        // Check if email exists in the database
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // Successful login, start session and redirect
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['email'] = $user['email'];
+                header('Location: dashboard.php'); // Redirect to a secure page
+                exit;
+            } else {
+                $message = "Incorrect password. Please try again.";
+            }
+        } else {
+            $message = "No user found with that email address.";
+        }
     }
-} else {
-    $message = "";
 }
 ?>
-
-
-
 
 <!doctype html>
 <html lang="en">
@@ -41,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 </head>
 
 <body>
@@ -57,24 +69,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="email">Enter your email</label>
                             </div>
                             <div class="input-field password-login-input">
-                                <input type="password" name="password" required autocomplete="new-password"
-                                    id="password">
+                                <input type="password" name="password" required autocomplete="new-password" id="password">
                                 <label for="password">Enter your password</label>
                                 <i class="bi bi-eye"></i>
                             </div>
                             <div class="row justify-content-between align-items-baseline mt-3">
                                 <div class="col-5">
                                     <div class="input-group captch_box">
-                                        <div id="captcha" class="form-control text-white" disabled=""></div>
-                                        <span class="input-group-text"><i
-                                                class="bi bi-arrow-repeat text-white"></i></span>
-                                        <input type="hidden" id="generatedCaptchaInput" name="generatedCaptcha">
+                                        <div id="captcha" class="form-control text-white" disabled=""><?php echo $generatedCaptcha; ?></div>
+                                        <span class="input-group-text"><i class="bi bi-arrow-repeat text-white"></i></span>
+                                        <input type="hidden" id="generatedCaptchaInput" name="generatedCaptcha" value="<?php echo $generatedCaptcha; ?>">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="input-field captch_input">
-                                        <input type="text" name="captcha" required autocomplete="new-captcha"
-                                            id="captchaInput" style="text-transform: uppercase;">
+                                        <input type="text" name="captcha" required autocomplete="new-captcha" id="captchaInput" style="text-transform: uppercase;">
                                         <label for="captcha">Enter Captcha</label>
                                     </div>
                                 </div>
@@ -88,10 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <button class="my_button" type="submit" id="my_button">Log In</button>
                             <p class="text-white"><?php echo $message; ?></p>
-
-                            <!-- <div class="register">
-                                <p>Don't have an account? <a href="#">Register</a></p>
-                            </div> -->
                         </form>
                     </div>
                 </div>
@@ -120,8 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 iconElement.classList.remove('bi-eye-slash');
                 iconElement.classList.add('bi-eye');
             }
-
-            console.log('Icon clicked, password visibility toggled!');
         });
     </script>
 </body>

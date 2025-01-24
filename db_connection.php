@@ -1,19 +1,14 @@
 <?php
-// Database credentials
-$host = 'localhost'; // Change if using a remote server
-$username = 'root';  // Change to your database username
-$password = '';      // Change to your database password
-$dbname = 'application'; // Your database name
+// db_connection.php
+$host = 'localhost'; // Database host
+$dbname = 'application'; // Database name
+$username = 'root'; // Database username
+$password = ''; // Database password
 
-// Create a connection
-$conn = new mysqli($host, $username, $password, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
-
-// Uncomment for debugging purpose
-// echo "Connected successfully";
-
 ?>
