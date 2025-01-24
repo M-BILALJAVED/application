@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
-                header('Location: dashboard.php'); // Redirect to a secure page
+                header('Location: Admin_dashboard.html'); // Redirect to a secure page
                 exit;
             } else {
                 $message = "Incorrect password. Please try again.";
@@ -69,21 +69,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="email">Enter your email</label>
                             </div>
                             <div class="input-field password-login-input">
-                                <input type="password" name="password" required autocomplete="new-password" id="password">
+                                <input type="password" name="password" required autocomplete="new-password"
+                                    id="password">
                                 <label for="password">Enter your password</label>
                                 <i class="bi bi-eye"></i>
                             </div>
                             <div class="row justify-content-between align-items-baseline mt-3">
                                 <div class="col-5">
                                     <div class="input-group captch_box">
-                                        <div id="captcha" class="form-control text-white" disabled=""><?php echo $generatedCaptcha; ?></div>
-                                        <span class="input-group-text"><i class="bi bi-arrow-repeat text-white"></i></span>
-                                        <input type="hidden" id="generatedCaptchaInput" name="generatedCaptcha" value="<?php echo $generatedCaptcha; ?>">
+                                        <div id="captcha" class="form-control text-white" disabled="">
+                                            <?php echo $generatedCaptcha; ?>
+                                        </div>
+                                        <span class="input-group-text"><i
+                                                class="bi bi-arrow-repeat text-white"></i></span>
+                                        <input type="hidden" id="generatedCaptchaInput" name="generatedCaptcha"
+                                            value="<?php echo $generatedCaptcha; ?>">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="input-field captch_input">
-                                        <input type="text" name="captcha" required autocomplete="new-captcha" id="captchaInput" style="text-transform: uppercase;">
+                                        <input type="text" name="captcha" required autocomplete="new-captcha"
+                                            id="captchaInput" style="text-transform: uppercase;">
                                         <label for="captcha">Enter Captcha</label>
                                     </div>
                                 </div>
@@ -93,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input type="checkbox">
                                     <p>Remember me</p>
                                 </label>
-                                <a href="#" style="color: #efefef;">Forgot password?</a>
+                                <a href="forget_pass.html" style="color: #efefef;">Forgot password?</a>
                             </div>
                             <button class="my_button" type="submit" id="my_button">Log In</button>
                             <p class="text-white"><?php echo $message; ?></p>
@@ -109,6 +115,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const captchaDiv = document.getElementById("captcha");
+            const refreshButton = document.querySelector(".captch_box .input-group-text");
+            const captchaHiddenInput = document.getElementById("generatedCaptchaInput");
+
+            const fonts = ["Arial", "Verdana", "Courier New", "Georgia", "Times New Roman", "Comic Sans MS"];
+
+            function generateCaptcha() {
+                const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                const colors = ["#FF5733", "#33FF57", "#3357FF", "#F333FF", "#FFDD33", "#33FFF3", "#FF5733", "#FF8C00", "#00FF7F", "yellow"];
+                const captchaLength = 4;
+                let captchaText = "";
+
+                captchaDiv.innerHTML = "";
+
+                for (let i = 0; i < captchaLength; i++) {
+                    const char = chars.charAt(Math.floor(Math.random() * chars.length));
+                    const span = document.createElement("span");
+
+                    span.textContent = char;
+                    span.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    span.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+                    span.style.fontSize = `${Math.floor(Math.random() * 11) + 15}px`;
+
+                    captchaDiv.appendChild(span);
+                    captchaText += char;
+                }
+
+                captchaHiddenInput.value = captchaText; // Store CAPTCHA in hidden input for submission
+            }
+
+            generateCaptcha();
+
+            refreshButton.addEventListener("click", generateCaptcha);
+        });
+
         // Select the icon and input elements
         const iconElement = document.querySelector('.password-login-input i');
         const passwordInput = document.querySelector('#password');
