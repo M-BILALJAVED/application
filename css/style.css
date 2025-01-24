@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&family=Fredoka:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: #fff;
+    --black: #000;
+    --a-redish: #dd6289;
+    /* --head-black: #000000;
+    --yellow: #ffd40d;
+    --nav-links-color: #010101;
+    --video-btn: #ed4b34;
+    --para-color: #555555; */
+}
+
+body {
+    font-family: "Epilogue", sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Fredoka", sans-serif;
+
+}
+
+a {
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+.my_button {
+    background: var(--white);
+    color: #000;
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+}
+
+.my_button:hover {
+    color: var(--white);
+    border-color: var(--white);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* login */
+.login {
+    background-image: url(../images/login-bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+}
+
+.login_wrapper form {
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    display: flex;
+    flex-direction: column;
+}
+
+.login_wrapper .input-field {
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    margin: 15px 0;
+}
+
+.login_wrapper .input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: var(--white);
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+}
+
+.login_wrapper .input-field input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--white);
+}
+
+.login_wrapper .input-field input:focus~label,
+.login_wrapper .input-field input:valid~label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+}
+
+.login_wrapper .password-login-input i {
+    position: absolute;
+    font-size: 20px;
+    color: var(--white);
+    right: 10px;
+    bottom: 0px;
+    cursor: pointer;
+}
+
+/* By default, hide the icon */
+/* .password-login-input i {
+    display: none;
+} */
+
+.login_wrapper .forget {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    color: var(--white);
+}
+
+.login_wrapper .forget label p {
+    margin-left: 8px;
+}
+
+.login_wrapper .register {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--white);
+}
+
+/*  */
+.login_wrapper span.input-group-text {
+    background: #826afb;
+    cursor: pointer;
+    border: none;
+}
+
+.login_wrapper span.input-group-text:hover {
+    background-color: #6a51d1;
+}
+
+.login_wrapper #captcha {
+    border: none !important;
+    background-color: #b6b6b6 !important;
+}
