@@ -16,10 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Generate a 4-digit OTP
         $otp = rand(1000, 9999);
 
-        // Update OTP in the database for the matched email
-        $updateStmt = $pdo->prepare("UPDATE admin_users SET otp_code = :otp WHERE email = :email");
+        // Set the OTP expiration time (e.g., 5 minutes from now)
+        $expiry_time = date("Y-m-d H:i:s", strtotime("+5 minutes"));
+
+        // Update OTP and expiration time in the database for the matched email
+        $updateStmt = $pdo->prepare("UPDATE admin_users SET otp_code = :otp, otp_expiry = :expiry_time WHERE email = :email");
         $updateStmt->execute([
             'otp' => $otp,
+            'expiry_time' => $expiry_time,
             'email' => $email
         ]);
 
@@ -27,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_start(); // Make sure session is started before using $_SESSION
         $_SESSION['email'] = $email;
 
-        // Redirect the user to another page (e.g., 'reset_password.php')
+        // Redirect the user to another page (e.g., 'get_code.php')
         header("Location: get_code.php"); // Change this to the page you want to redirect to
         exit(); // Stop script execution after redirect
 
@@ -35,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "No user found with that email address.";
     }
 }
+
 ?>
 
 <!doctype html>

@@ -1,31 +1,36 @@
 <?php
 session_start();
 
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Collect OTP input from form
     if (isset($_POST['otp'])) {
-        $otp = $_POST['otp']; // This will contain the concatenated 4-digit OTP value
+        $otp = $_POST['otp']; // The concatenated OTP entered by the user
 
-        // Assuming the email is stored in the session from the previous step
         if (isset($_SESSION['email'])) {
             $email = $_SESSION['email'];
 
-            // Connect to the database
-            require_once 'db_connection.php'; // Ensure this is your correct DB connection file
+            require_once 'db_connection.php';
 
-            // Retrieve the stored OTP from the database for the specific email
-            $stmt = $pdo->prepare("SELECT otp_code FROM admin_users WHERE email = :email");
+            // Retrieve the stored OTP and its expiry time from the database
+            $stmt = $pdo->prepare("SELECT otp_code, otp_expiry FROM admin_users WHERE email = :email");
             $stmt->execute(['email' => $email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                $stored_otp = $user['otp_code']; // Fetch the OTP stored in the database
-                // Check if the OTP entered by the user is correct
-                if ($otp == $stored_otp) {
-                    $message = "OTP is correct! You can proceed.";
+                $stored_otp = $user['otp_code'];
+                $otp_expiry = $user['otp_expiry'];
+
+                // Check if OTP has expired
+                if (strtotime($otp_expiry) < time()) {
+                    $message = "OTP has expired. Please request a new one.";
                 } else {
-                    $message = "Invalid OTP. Please try again.";
+                    // Compare the entered OTP with the stored OTP
+                    if ($otp == $stored_otp) {
+                        // OTP is correct, redirect to create_new_pass.php
+                        header("Location: create_new_pass.php");
+                        exit(); // Stop script execution after redirect
+                    } else {
+                        $message = "Invalid OTP. Please try again.";
+                    }
                 }
             } else {
                 $message = "No user found with that email address.";
