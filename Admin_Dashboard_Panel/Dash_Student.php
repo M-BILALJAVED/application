@@ -37,12 +37,12 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
         <?php include("sidenavbar.php"); ?>
 
         <!--  -->
-        <div class="main p-3">
+        <div class="main">
             <section class="dashboard">
 
                 <?php include("topwalasectiond.php"); ?>
 
-                <div class="dash-content">
+                <div class="dash-content  p-3">
                     <div class="overview">
 
                         <div class="title">
@@ -72,52 +72,52 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
                                 <span class="data-list">Deepa Chand</span>
                                 <span class="data-list">Manisha Chand</span>
                                 <span class="data-list">Pratima Shahi</span>
-                                <span class="data-list">Man Shahi</span>
-                                <span class="data-list">Ganesh Chand</span>
-                                <span class="data-list">Bikash Chand</span>
                             </div>
                             <div class="data email">
                                 <span class="data-title">Email</span>
                                 <span class="data-list">premshahi@gmail.com</span>
                                 <span class="data-list">deepachand@gmail.com</span>
-                                <span class="data-list">prakashhai@gmail.com</span>
                                 <span class="data-list">manishachand@gmail.com</span>
-                                <span class="data-list">pratimashhai@gmail.com</span>
-                                <span class="data-list">manshahi@gmail.com</span>
-                                <span class="data-list">ganeshchand@gmail.com</span>
+                                <span class="data-list">pratimashahi@gmail.com</span>
                             </div>
-                            <div class="data joined">
-                                <span class="data-title">Joined</span>
-                                <span class="data-list">2022-02-12</span>
-                                <span class="data-list">2022-02-12</span>
-                                <span class="data-list">2022-02-13</span>
-                                <span class="data-list">2022-02-13</span>
-                                <span class="data-list">2022-02-14</span>
-                                <span class="data-list">2022-02-14</span>
-                                <span class="data-list">2022-02-15</span>
+                            <div class="data roll-number">
+                                <span class="data-title">Roll Number</span>
+                                <span class="data-list">1001</span>
+                                <span class="data-list">1002</span>
+                                <span class="data-list">1003</span>
+                                <span class="data-list">1004</span>
                             </div>
-                            <div class="data type">
-                                <span class="data-title">Type</span>
-                                <span class="data-list">New</span>
-                                <span class="data-list">Member</span>
-                                <span class="data-list">Member</span>
-                                <span class="data-list">New</span>
-                                <span class="data-list">Member</span>
-                                <span class="data-list">New</span>
-                                <span class="data-list">Member</span>
+                            <div class="data dob">
+                                <span class="data-title">Date of Birth</span>
+                                <span class="data-list">2001-05-12</span>
+                                <span class="data-list">2002-06-15</span>
+                                <span class="data-list">2001-11-20</span>
+                                <span class="data-list">2003-03-18</span>
                             </div>
-                            <div class="data status">
-                                <span class="data-title">Status</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
+                            <div class="data phone">
+                                <span class="data-title">Phone Number</span>
+                                <span class="data-list">1234567890</span>
+                                <span class="data-list">9876543210</span>
+                                <span class="data-list">5556667778</span>
+                                <span class="data-list">8889990001</span>
+                            </div>
+                            <div class="data gender">
+                                <span class="data-title">Gender</span>
+                                <span class="data-list">Male</span>
+                                <span class="data-list">Female</span>
+                                <span class="data-list">Female</span>
+                                <span class="data-list">Female</span>
+                            </div>
+                            <div class="data address">
+                                <span class="data-title">Address</span>
+                                <span class="data-list">Kathmandu, Nepal</span>
+                                <span class="data-list">Pokhara, Nepal</span>
+                                <span class="data-list">Lalitpur, Nepal</span>
+                                <span class="data-list">Bhaktapur, Nepal</span>
                             </div>
                         </div>
                     </div>
+
 
                 </div>
             </section>
@@ -129,7 +129,7 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
     <!-- Modal -->
     <div class="modal fade" id="addStudentsModal" tabindex="-1" aria-labelledby="addStudentsModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addStudentsModalLabel">Add New Students</h5>
@@ -139,16 +139,42 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
                     <!-- Your form or content goes here -->
                     <form>
                         <div class="mb-3">
-                            <label for="StudentsName" class="form-label">Students Name</label>
+                            <label for="StudentsName" class="form-label">Student's Name</label>
                             <input type="text" class="form-control" id="StudentsName" required>
                         </div>
                         <div class="mb-3">
                             <label for="StudentsEmail" class="form-label">Email Address</label>
                             <input type="email" class="form-control" id="StudentsEmail" required>
                         </div>
-                        <!-- You can add more fields as needed -->
-                        <button type="submit" class="btn btn-primary">Add Students</button>
+                        <div class="mb-3">
+                            <label for="RollNumber" class="form-label">Roll Number</label>
+                            <input type="text" class="form-control" id="RollNumber" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="DateOfBirth" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="DateOfBirth" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="PhoneNumber" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="PhoneNumber" pattern="[0-9]{10}"
+                                placeholder="1234567890" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Gender" class="form-label">Gender</label>
+                            <select class="form-control" id="Gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Address" class="form-label">Address</label>
+                            <textarea class="form-control" id="Address" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Student</button>
                     </form>
+
                 </div>
             </div>
         </div>

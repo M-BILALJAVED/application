@@ -5,7 +5,7 @@
             <i class="bi bi-emoji-smile-upside-down"></i>
         </div>
         <div class="sidebar-logo">
-            <a href="#" class="list-unstyled">Admin Hub</a>
+            <a href="index.php" class="list-unstyled">Admin Hub</a>
         </div>
     </div>
 
@@ -104,7 +104,7 @@
 
 </aside>
 
-<div class="Right_Side_shayd Disply_none" id="Right_Side_shayd"></div>
+<div class="Right_Side_shayd Display_none" id="Right_Side_shayd"></div>
 
 
 <script>

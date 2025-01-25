@@ -37,12 +37,12 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
         <?php include("sidenavbar.php"); ?>
 
         <!--  -->
-        <div class="main p-3">
+        <div class="main">
             <section class="dashboard">
 
                 <?php include("topwalasectiond.php"); ?>
 
-                <div class="dash-content">
+                <div class="dash-content p-3">
                     <div class="overview">
 
                         <div class="title">
@@ -66,58 +66,66 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
                         </div>
 
                         <div class="activity-data">
+                            <!-- Name Column -->
                             <div class="data names">
                                 <span class="data-title">Name</span>
                                 <span class="data-list">Prem Shahi</span>
                                 <span class="data-list">Deepa Chand</span>
                                 <span class="data-list">Manisha Chand</span>
                                 <span class="data-list">Pratima Shahi</span>
-                                <span class="data-list">Man Shahi</span>
-                                <span class="data-list">Ganesh Chand</span>
-                                <span class="data-list">Bikash Chand</span>
                             </div>
+                            <!-- Email Column -->
                             <div class="data email">
                                 <span class="data-title">Email</span>
                                 <span class="data-list">premshahi@gmail.com</span>
                                 <span class="data-list">deepachand@gmail.com</span>
                                 <span class="data-list">prakashhai@gmail.com</span>
                                 <span class="data-list">manishachand@gmail.com</span>
-                                <span class="data-list">pratimashhai@gmail.com</span>
-                                <span class="data-list">manshahi@gmail.com</span>
-                                <span class="data-list">ganeshchand@gmail.com</span>
                             </div>
-                            <div class="data joined">
-                                <span class="data-title">Joined</span>
-                                <span class="data-list">2022-02-12</span>
-                                <span class="data-list">2022-02-12</span>
-                                <span class="data-list">2022-02-13</span>
-                                <span class="data-list">2022-02-13</span>
-                                <span class="data-list">2022-02-14</span>
-                                <span class="data-list">2022-02-14</span>
-                                <span class="data-list">2022-02-15</span>
+                            <!-- Phone Column -->
+                            <div class="data phone">
+                                <span class="data-title">Phone</span>
+                                <span class="data-list">9876543210</span>
+                                <span class="data-list">8765432109</span>
+                                <span class="data-list">7654321098</span>
+                                <span class="data-list">6543210987</span>
                             </div>
-                            <div class="data type">
-                                <span class="data-title">Type</span>
-                                <span class="data-list">New</span>
-                                <span class="data-list">Member</span>
-                                <span class="data-list">Member</span>
-                                <span class="data-list">New</span>
-                                <span class="data-list">Member</span>
-                                <span class="data-list">New</span>
-                                <span class="data-list">Member</span>
+                            <!-- Subject Column -->
+                            <div class="data subject">
+                                <span class="data-title">Subject</span>
+                                <span class="data-list">Mathematics</span>
+                                <span class="data-list">Science</span>
+                                <span class="data-list">English</span>
+                                <span class="data-list">History</span>
                             </div>
-                            <div class="data status">
-                                <span class="data-title">Status</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
-                                <span class="data-list">Liked</span>
+                            <!-- Gender Column -->
+                            <div class="data gender">
+                                <span class="data-title">Gender</span>
+                                <span class="data-list">Male</span>
+                                <span class="data-list">Female</span>
+                                <span class="data-list">Female</span>
+                                <span class="data-list">Female</span>
+                            </div>
+                            <!-- Experience Column -->
+                            <div class="data experience">
+                                <span class="data-title">Experience (Years)</span>
+                                <span class="data-list">5</span>
+                                <span class="data-list">3</span>
+                                <span class="data-list">7</span>
+                                <span class="data-list">4</span>
+                            </div>
+                            <!-- Address Column -->
+                            <div class="data address">
+                                <span class="data-title">Address</span>
+                                <span class="data-list">123 Main St, City A</span>
+                                <span class="data-list">456 Oak St, City B</span>
+                                <span class="data-list">789 Pine St, City C</span>
+                                <span class="data-list">321 Elm St, City D</span>
                             </div>
                         </div>
                     </div>
+
+
 
                 </div>
             </section>
@@ -129,7 +137,7 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
     <!-- Modal -->
     <div class="modal fade" id="addTeacherModal" tabindex="-1" aria-labelledby="addTeacherModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addTeacherModalLabel">Add New Teacher</h5>
@@ -146,9 +154,35 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
                             <label for="teacherEmail" class="form-label">Email Address</label>
                             <input type="email" class="form-control" id="teacherEmail" required>
                         </div>
-                        <!-- You can add more fields as needed -->
+                        <div class="mb-3">
+                            <label for="teacherPhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="teacherPhone" pattern="[0-9]{10}"
+                                placeholder="1234567890" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacherSubject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="teacherSubject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacherGender" class="form-label">Gender</label>
+                            <select class="form-control" id="teacherGender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacherExperience" class="form-label">Years of Experience</label>
+                            <input type="number" class="form-control" id="teacherExperience" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacherAddress" class="form-label">Address</label>
+                            <textarea class="form-control" id="teacherAddress" rows="3" required></textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary">Add Teacher</button>
                     </form>
+
                 </div>
             </div>
         </div>
