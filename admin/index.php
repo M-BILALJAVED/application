@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // OTP is correct, set a cookie for 1 minute
                 setcookie("userNypasssailagya", "true", time() + 36000, "/"); // expires in 1 minute
 
-                header('Location: Admin_Dashboard_Panel'); // Redirect to a secure page
+                header('Location: D_Admin'); // Redirect to a secure page
                 exit;
             } else {
                 $message = "Incorrect password. Please try again.";
@@ -72,8 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="email">Enter your email</label>
                             </div>
                             <div class="input-field password-login-input">
-                                <input type="password" name="password" required autocomplete="new-password"
-                                    id="password">
+                                <input type="password" name="password" required id="password">
                                 <label for="password">Enter your password</label>
                                 <i class="bi bi-eye"></i>
                             </div>
@@ -98,10 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
                             <div class="forget my-3 mt-4">
-                                <label class="d-flex align-items-baseline">
-                                    <input type="checkbox">
-                                    <p>Remember me</p>
-                                </label>
                                 <a href="forget_pass.php" style="color: #efefef;">Forgot password?</a>
                             </div>
                             <button class="my_button" type="submit" id="my_button">Log In</button>

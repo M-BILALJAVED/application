@@ -118,21 +118,12 @@ a {
     cursor: pointer;
 }
 
-/* By default, hide the icon */
-/* .password-login-input i {
-    display: none;
-} */
-
 .login_wrapper .forget {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+    justify-content: center;
     color: var(--white);
 }
 
-.login_wrapper .forget label p {
-    margin-left: 8px;
-}
 
 .login_wrapper .register {
     text-align: center;
