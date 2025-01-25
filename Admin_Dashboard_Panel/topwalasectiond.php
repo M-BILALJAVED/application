@@ -1,6 +1,6 @@
 <div class="top">
 
-    <i class="lanlymera bi bi-list sidebar-toggle"></i>
+    <i class="hammBurgur bi bi-list sidebar-toggle" style="z-index: 2;"></i>
 
 
     <div class="search-box">
@@ -12,10 +12,28 @@
 </div>
 
 <script>
-    const lanlymera = document.querySelector(".lanlymera");
+    const hammBurgur = document.querySelector(".hammBurgur");
+    let Right_Side_shayd = document.getElementById('Right_Side_shayd')
 
-    lanlymera.addEventListener("click", function () {
+
+    hammBurgur.addEventListener("click", function () {
         document.querySelector("#sidebar").classList.toggle("expand");
+
+        if (document.querySelector("#sidebar").classList.contains("expand")) {
+            // If the sidebar has the "expand" class
+            document.getElementById('Right_Side_shayd').style.display = 'block';  // Show the element
+            Right_Side_shayd.addEventListener("click", function () {
+                document.querySelector("#sidebar").classList.remove("expand");
+                document.getElementById('Right_Side_shayd').style.display = 'none';  // Hide the element
+
+            });
+            console.log("Sidebar is expanded");
+        } else {
+            // If the sidebar does not have the "expand" class
+            document.getElementById('Right_Side_shayd').style.display = 'none';  // Hide the element
+            console.log("Sidebar is collapsed");
+        }
+
     });
 
 </script>

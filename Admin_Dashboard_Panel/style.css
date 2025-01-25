@@ -131,6 +131,7 @@ a {
     background-color: #0e2238;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 #sidebar.expand {
@@ -290,6 +291,19 @@ a.sidebar-link:hover {
     cursor: pointer;
 }
 
+.Right_Side_shayd {
+    width: 100%;
+    background-color: #8fa7eb;
+    opacity: 0.6;
+    height: 100vh;
+    z-index: 1;
+    position: absolute;
+}
+
+.Disply_none {
+    display: none;
+}
+
 .dash-content .title {
     display: flex;
     align-items: center;
@@ -408,3 +422,5 @@ a.sidebar-link:hover {
         width: 100%;
     }
 }
+
+/*  */

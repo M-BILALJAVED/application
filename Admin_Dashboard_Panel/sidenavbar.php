@@ -104,6 +104,8 @@
 
 </aside>
 
+<div class="Right_Side_shayd Disply_none" id="Right_Side_shayd"></div>
+
 
 <script>
     // Select all sidebar items
@@ -138,15 +140,15 @@
     });
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var sidebar = document.getElementById('sidebar');
-    var bodyWidth = document.body.offsetWidth; // or document.body.clientWidth
+    document.addEventListener('DOMContentLoaded', function () {
+        var sidebar = document.getElementById('sidebar');
+        var bodyWidth = document.body.offsetWidth; // or document.body.clientWidth
 
-    if (bodyWidth < 800) { // adjust this value as needed
-        sidebar.classList.remove('expand');
-    } else {
-        sidebar.classList.add('expand');
-    }
-});
+        if (bodyWidth < 800) { // adjust this value as needed
+            sidebar.classList.remove('expand');
+        } else {
+            sidebar.classList.add('expand');
+        }
+    });
 
 </script>
