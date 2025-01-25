@@ -31,6 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_start(); // Make sure session is started before using $_SESSION
         $_SESSION['email'] = $email;
 
+          // OTP is correct, set a cookie for 1 minute
+          setcookie("otpPagejao", "true", time() + 60, "/"); // expires in 1 minute
+
+
         // Redirect the user to another page (e.g., 'get_code.php')
         header("Location: get_code.php"); // Change this to the page you want to redirect to
         exit(); // Stop script execution after redirect

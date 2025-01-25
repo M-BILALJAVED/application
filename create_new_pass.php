@@ -1,12 +1,16 @@
 <?php
+
+// Start the session (you can remove session_start() if you no longer need it)
 session_start();
 
-// Check if the user is logged in and has passed OTP validation
-if (!isset($_SESSION['email'])) {
-    // If no session, redirect to OTP page or login page
-    header("Location: get_code.php"); // Adjust this URL to your OTP page
+// Check if the OTP cookie is set and valid
+if (!isset($_COOKIE['otp_verified']) || $_COOKIE['otp_verified'] != "true") {
+    // If the OTP cookie is not set or invalid, redirect to OTP page
+    header("Location: forget_pass.php"); // Adjust this URL to your OTP page
     exit(); // Stop further script execution
 }
+
+
 
 $message = "";
 
@@ -35,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_destroy(); // Clear session to require re-login with the new password
 
         // Redirect the user to the login page after successful password update
-        header("Location: login.php");
+        header("Location: index.php");
         exit();
     } else {
         $message = "Passwords do not match. Please try again.";

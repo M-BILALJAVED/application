@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+// Check if the OTP cookie is set and valid
+if (!isset($_COOKIE['otpPagejao']) || $_COOKIE['otpPagejao'] != "true") {
+    // If the OTP cookie is not set or invalid, redirect to OTP page
+    header("Location: forget_pass.php"); // Adjust this URL to your OTP page
+    exit(); // Stop further script execution
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['otp'])) {
         $otp = $_POST['otp']; // The concatenated OTP entered by the user
@@ -25,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } else {
                     // Compare the entered OTP with the stored OTP
                     if ($otp == $stored_otp) {
+                        // OTP is correct, set a cookie for 1 minute
+                        setcookie("otp_verified", "true", time() + 60, "/"); // expires in 1 minute
+
                         // OTP is correct, redirect to create_new_pass.php
                         header("Location: create_new_pass.php");
                         exit(); // Stop script execution after redirect

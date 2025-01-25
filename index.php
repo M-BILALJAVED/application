@@ -27,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
-                header('Location: Admin_dashboard.html'); // Redirect to a secure page
+                // OTP is correct, set a cookie for 1 minute
+                setcookie("userNypasssailagya", "true", time() + 36000, "/"); // expires in 1 minute
+
+                header('Location: Admin_Dashboard_Panel'); // Redirect to a secure page
                 exit;
             } else {
                 $message = "Incorrect password. Please try again.";
