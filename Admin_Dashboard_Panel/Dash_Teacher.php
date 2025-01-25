@@ -44,27 +44,18 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
 
                 <div class="dash-content">
                     <div class="overview">
+
                         <div class="title">
                             <i class="bi bi-speedometer2"></i>
-                            <span class="text">Dashboard</span>
+                            <span class="text">Teachers</span>
                         </div>
 
                         <div class="boxes">
-                            <div class="box box1">
-                                <i class="bi bi-hand-thumbs-up"></i>
-                                <span class="text">Total Students</span>
-                                <span class="number">50</span>
-                            </div>
-                            <div class="box box2">
-                                <i class="bi bi-chat-dots"></i>
-                                <span class="text">Total Teacher</span>
-                                <span class="number">20</span>
-                            </div>
-                            <div class="box box3">
-                                <i class="bi bi-share"></i>
-                                <span class="text">Total</span>
-                                <span class="number">100</span>
-                            </div>
+                            <button class="my__btn1" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+                                Add New Teacher
+                                <i class="bi bi-plus-circle"></i>
+                            </button>
+
                         </div>
                     </div>
 
@@ -132,6 +123,39 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
             </section>
         </div>
     </div>
+
+
+    <!-- ========== Start modal teacher ========== -->
+    <!-- Modal -->
+    <div class="modal fade" id="addTeacherModal" tabindex="-1" aria-labelledby="addTeacherModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTeacherModalLabel">Add New Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your form or content goes here -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="teacherName" class="form-label">Teacher Name</label>
+                            <input type="text" class="form-control" id="teacherName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacherEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="teacherEmail" required>
+                        </div>
+                        <!-- You can add more fields as needed -->
+                        <button type="submit" class="btn btn-primary">Add Teacher</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== End modal teacher ========== -->
+
     <!-- Bootstrap JS & Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

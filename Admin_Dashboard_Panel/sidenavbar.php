@@ -95,28 +95,6 @@
     </ul>
 
 
-    <!-- <ul class="sidebar-nav">
-        <li class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
-            <a href="index.php" class="sidebar-link">
-                <i class="lni lni-user"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'Dash_Teacher.php' ? 'active' : ''; ?>">
-            <a href="Dash_Teacher.php" class="sidebar-link">
-                <i class="lni lni-agenda"></i>
-                <span>Teachers</span>
-            </a>
-        </li>
-        <li class="sidebar-item <?php echo basename($_SERVER['PHP_SELF']) == 'Dash_Student.php' ? 'active' : ''; ?>">
-            <a href="Dash_Student.php" class="sidebar-link">
-                <i class="lni lni-agenda"></i>
-                <span>Students</span>
-            </a>
-        </li>
-    </ul> -->
-
-
     <div class="sidebar-footer mb-4">
         <a href="" class="sidebar-link W_logout_but">
             <i class="lni lni-exit"></i>
@@ -158,4 +136,17 @@
         // Optionally, redirect the user to the login or home page
         window.location.href = '../index.php'; // Adjust the path to your desired page
     });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var sidebar = document.getElementById('sidebar');
+    var bodyWidth = document.body.offsetWidth; // or document.body.clientWidth
+
+    if (bodyWidth < 800) { // adjust this value as needed
+        sidebar.classList.remove('expand');
+    } else {
+        sidebar.classList.add('expand');
+    }
+});
+
 </script>
