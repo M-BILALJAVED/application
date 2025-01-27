@@ -1,18 +1,17 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
-    header("Location: ./index.php");
+if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'teacher') {
+    header("Location: ../index.php");
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Student</title>
+    <title>Teacher</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,14 +29,14 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="../Teacher/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../Teacher/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="../Teacher/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="../Teacher/css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,47 +52,38 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
 
 
         <!-- Sidebar Start -->
-        <?php include("Right_SideBar.php") ?>
+        <?php include('right_side_nav.php'); ?>
         <!-- Sidebar End -->
 
 
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            <?php include("Top_NavBar.php") ?>
+            <?php include('Top_navBar.php'); ?>
             <!-- Navbar End -->
 
 
-            <!-- ========== Start blank ========== -->
+            <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                        <!--  -->
-                        <div class="container mt-5">
-                            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
-                            <p>This is the student dashboard.</p>
-                            <a href="../logout.php" class="btn btn-danger">Logout</a>
-                        </div>
-                        <!--  -->
-                        <!-- <h3>This is blank page</h3> -->
+                        <h3>This is blank page</h3>
                     </div>
                 </div>
             </div>
-            <!-- ========== End blank ========== -->
-
-
+            <!-- Blank End -->
 
 
             <!-- Footer Start -->
-            <footer class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
-                    <div class="row justify-content-center">
+                    <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
                             &copy; <a href="#">Your Site Name</a>, All Right Reserved.
                         </div>
                     </div>
                 </div>
-            </footer>
+            </div>
             <!-- Footer End -->
         </div>
         <!-- Content End -->
@@ -106,15 +96,15 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Teacher/lib/easing/easing.min.js"></script>
-    <script src="../Teacher/lib/waypoints/waypoints.min.js"></script>
-    <script src="../Teacher/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../Teacher/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../Teacher/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../Teacher/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="../Teacher/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

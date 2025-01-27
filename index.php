@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($password === $row_student['pass']) { // Use `password_verify` if passwords are hashed
             $_SESSION['user'] = $row_student['name'];
             $_SESSION['role'] = 'student';
-            header("Location: student_dashboard.php");
+            header("Location: Student");
             exit();
         } else {
             $error_message = "Invalid email or password.";
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $row_teacher['Password'])) {
             $_SESSION['user'] = $row_teacher['Name'];
             $_SESSION['role'] = 'teacher';
-            header("Location: teacher_dashboard.php");
+            header("Location: Teacher");
             exit();
         } else {
             $error_message = "Invalid email or password.";
