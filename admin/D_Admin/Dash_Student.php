@@ -8,6 +8,40 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
     exit(); // Stop further script execution
 }
 
+// Include the database connection file
+include '../db_connection.php';
+
+if (!isset($conn)) {
+    die("Database connection not established.");
+}
+
+// Initialize message variable
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get data from the form
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $student_id = $_POST['student_id'];
+    $pass = $_POST['pass'];
+    $gender = $_POST['gender'];
+    $semester = $_POST['semester'];
+    $phone_number = $_POST['phone_number'];
+
+    // SQL query to insert data into Students_info table
+    $sql = "INSERT INTO Students_info (student_id, name, email, pass, gender, semester, phone_number)
+            VALUES ('$student_id', '$name', '$email', '$pass', '$gender', '$semester', '$phone_number')";
+
+    if ($conn->query($sql) === TRUE) {
+        $message = "New student added successfully!";
+    } else {
+        $message = "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    // Close connection
+    $conn->close();
+}
+
 ?>
 
 
@@ -136,32 +170,34 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Success/Error Message -->
+                    <?php if (!empty($message)): ?>
+                        <div class="alert <?= strpos($message, 'successfully') ? 'alert-success' : 'alert-danger' ?>">
+                            <?= $message ?>
+                        </div>
+                    <?php endif; ?>
                     <!-- Your form or content goes here -->
-                    <form>
+                    <form method="POST" action="">
+                        <!-- Specify the correct path to your PHP script -->
+                        <div class="mb-3">
+                            <label for="StudentID" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="StudentID" name="student_id" required>
+                        </div>
                         <div class="mb-3">
                             <label for="StudentsName" class="form-label">Student's Name</label>
-                            <input type="text" class="form-control" id="StudentsName" required>
+                            <input type="text" class="form-control" id="StudentsName" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="StudentsEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="StudentsEmail" required>
+                            <input type="email" class="form-control" id="StudentsEmail" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="RollNumber" class="form-label">Roll Number</label>
-                            <input type="text" class="form-control" id="RollNumber" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="DateOfBirth" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="DateOfBirth" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="PhoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="PhoneNumber" pattern="[0-9]{10}"
-                                placeholder="1234567890" required>
+                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="Password" name="pass" required>
                         </div>
                         <div class="mb-3">
                             <label for="Gender" class="form-label">Gender</label>
-                            <select class="form-control" id="Gender" required>
+                            <select class="form-control" id="Gender" name="gender" required>
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -169,11 +205,19 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="Address" class="form-label">Address</label>
-                            <textarea class="form-control" id="Address" rows="3" required></textarea>
+                            <label for="Semester" class="form-label">Semester</label>
+                            <input type="text" class="form-control" id="Semester" name="semester" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="PhoneNumber" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="PhoneNumber" name="phone_number"
+                                pattern="[0-9]{10}" placeholder="1234567890" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Student</button>
                     </form>
+
+
+
 
                 </div>
             </div>
