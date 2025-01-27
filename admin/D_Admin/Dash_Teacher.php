@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -216,8 +217,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="mb-3">
                             <label for="Subject" class="form-label">Subject</label>
                             <input type="text" name="Subject" class="form-control" id="Subject"
-                                placeholder="Enter Subject Taught" required>
+                                placeholder="Enter Subject" list="subjectsList" required>
+                            <datalist id="subjectsList">
+                                <?php
+                                include('Books.php');
+                                foreach ($allSubjects as $subject): ?>
+                                    <option value="<?php echo htmlspecialchars($subject); ?>"></option>
+                                <?php endforeach; ?>
+                            </datalist>
                         </div>
+
                         <div class="mb-3">
                             <label for="Email" class="form-label">Email Address</label>
                             <input type="email" name="Email" class="form-control" id="Email"
@@ -230,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="mb-3">
                             <label for="Phone" class="form-label">Phone Number</label>
-                            <input type="tel" name="Phone" class="form-control" id="Phone" pattern="[0-9]{10}"
+                            <input type="tel" name="Phone" class="form-control" id="Phone" pattern="[0-9]{11}"
                                 placeholder="1234567890" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Teacher</button>
@@ -267,13 +276,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="modalPassword" class="form-label">Password</label>
                             <input type="password" name="Password" class="form-control" id="modalPassword">
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="modalSubject" class="form-label">Subject</label>
                             <input type="text" name="Subject" class="form-control" id="modalSubject" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="modalSubject" class="form-label">Subject</label>
+                            <input type="text" name="Subject" class="form-control" id="modalSubject" list="subjectsList"
+                                required>
+                            <datalist id="subjectsList">
+                                <?php
+                                include('Books.php');
+                                foreach ($allSubjects as $subject): ?>
+                                    <option value="<?php echo htmlspecialchars($subject); ?>"></option>
+                                <?php endforeach; ?>
+                            </datalist>
                         </div>
                         <div class="mb-3">
                             <label for="modalPhone" class="form-label">Phone Number</label>
-                            <input type="tel" name="Phone" class="form-control" id="modalPhone" pattern="[0-9]{10}"
+                            <input type="tel" name="Phone" class="form-control" id="modalPhone" pattern="[0-9]{11}"
                                 required>
                         </div>
                         <button type="submit" class="btn btn-primary">Save Changes</button>

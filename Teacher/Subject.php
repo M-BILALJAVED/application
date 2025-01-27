@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'teacher') {
+if (!isset($_SESSION['Teacher_name']) || $_SESSION['role'] !== 'teacher') {
     header("Location: ../index.php");
     exit();
 }
@@ -65,9 +65,61 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'teacher') {
 
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>This is blank page</h3>
+                <div class="row bg-light rounded mx-0">
+                    <div class="bg-light rounded h-100 p-4">
+                        <h4 class="mb-4">Fill This form to get student </h4>
+                        <!-- form to get student  -->
+                        <form action="" id="studentForm">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="mb-2">Select Semester</label>
+                                    <select class="form-select form-select-sm mb-3" id="semesterSelect"
+                                        aria-label=".form-select-sm example">
+                                        <option selected="">Select Semester</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label class="mb-2">Enter Student_ID</label>
+                                    <input class="form-control" list="datalistOptions" id="studentID"
+                                        placeholder="Type to search...">
+                                    <datalist id="datalistOptions">
+                                        <option value="San Francisco">
+                                        <option value="New York">
+                                        <option value="Seattle">
+                                        <option value="Los Angeles">
+                                        <option value="Chicago">
+                                    </datalist>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-6 text-center">
+                                        <button type="button" id="tacher_studentKa_fetch" class="btn btn-primary">Fetch
+                                            Result</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <script>
+                            // JavaScript to capture form data and store in variables
+                            document.getElementById("tacher_studentKa_fetch").addEventListener("click", function () {
+                                // Fetch values
+                                let selectedSemester = document.getElementById("semesterSelect").value;
+                                let studentID = document.getElementById("studentID").value;
+
+                                // Store values in variables
+                                console.log("Selected Semester: " + selectedSemester);
+                                console.log("Entered Student ID: " + studentID);
+
+                                // If you want to use the values in variables later:
+                                // let semester = selectedSemester;
+                                // let student = studentID;
+                            });
+                        </script>
+
+
                     </div>
                 </div>
             </div>

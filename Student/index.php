@@ -1,10 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
+if (!isset($_SESSION['student_name']) || $_SESSION['role'] !== 'student') {
     header("Location: ./index.php");
     exit();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -70,7 +71,7 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                     <div class="col-md-6 text-center">
                         <!--  -->
                         <div class="container mt-5">
-                            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
+                            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['student_name']); ?>!</h1>
                             <p>This is the student dashboard.</p>
                             <a href="../logout.php" class="btn btn-danger">Logout</a>
                         </div>
@@ -115,6 +116,9 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
 
     <!-- Template Javascript -->
     <script src="../Teacher/js/main.js"></script>
+    <script src="../Teacher/js/for_Subject.js"></script>
+    <!--  -->
+    
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'teacher') {
+if (!isset($_SESSION['Teacher_name']) || $_SESSION['role'] !== 'teacher') {
     header("Location: ../index.php");
     exit();
 }
@@ -69,7 +69,7 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'teacher') {
                     <div class="col-md-6 text-center">
                         <!--  -->
                         <div class="container mt-5">
-                            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
+                            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['Teacher_name']); ?>!</h1>
                             <p>This is the teacher dashboard.</p>
                             <a href="../logout.php" class="btn btn-danger">Logout</a>
                         </div>

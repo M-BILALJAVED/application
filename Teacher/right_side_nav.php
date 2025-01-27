@@ -11,8 +11,10 @@
                 </div>
             </div>
             <div class="ms-3">
-                <h6 class="mb-0">Jhon Doe</h6>
-                <span>Teacher</span>
+                <h6 class="mb-0"><?php echo htmlspecialchars($_SESSION['Teacher_name']); ?></h6>
+                <span><?php echo htmlspecialchars($_SESSION['role']); ?></span>
+                <br>
+                <span><?php echo htmlspecialchars($_SESSION['subject']); ?></span>
             </div>
         </div>
         <div class="navbar-nav w-100">

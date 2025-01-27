@@ -28,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result_student->num_rows > 0) {
         $row_student = $result_student->fetch_assoc();
         if ($password === $row_student['pass']) { // Use `password_verify` if passwords are hashed
-            $_SESSION['user'] = $row_student['name'];
+            $_SESSION['student_id'] = $row_student['student_id']; // Storing student ID in session
+            $_SESSION['Semester'] = $row_student['semester'];
+            $_SESSION['student_name'] = $row_student['name'];
             $_SESSION['role'] = 'student';
             header("Location: Student");
             exit();
@@ -38,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($result_teacher->num_rows > 0) {
         $row_teacher = $result_teacher->fetch_assoc();
         if (password_verify($password, $row_teacher['Password'])) {
-            $_SESSION['user'] = $row_teacher['Name'];
+            $_SESSION['Teacher_id'] = $row_teacher['TeacherID'];
+            $_SESSION['Teacher_name'] = $row_teacher['Name'];
+            $_SESSION['subject'] = $row_teacher['Subject'];
             $_SESSION['role'] = 'teacher';
             header("Location: Teacher");
             exit();

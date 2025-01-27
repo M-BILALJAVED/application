@@ -246,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="mb-3">
                             <label for="PhoneNumber" class="form-label">Phone Number</label>
                             <input type="tel" class="form-control" id="PhoneNumber" name="phone_number"
-                                pattern="[0-9]{10}" placeholder="1234567890" required>
+                                pattern="[0-9]{11}" placeholder="1234567890" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Student</button>
                     </form>

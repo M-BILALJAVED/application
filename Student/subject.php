@@ -1,9 +1,37 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
+if (!isset($_SESSION['student_name']) || $_SESSION['role'] !== 'student') {
     header("Location: ./index.php");
     exit();
 }
+?>
+<!-- fetch sucject books -->
+<?php
+
+include "admin/D_Admin/Books.php";
+
+$storedSemester = $_SESSION['Semester'];
+$subjects = []; // Initialize an empty array to hold subjects
+
+// Determine the subjects based on the stored semester
+if ($storedSemester == 1) {
+    $subjects = $semester1;
+} elseif ($storedSemester == 2) {
+    $subjects = $semester2;
+} elseif ($storedSemester == 3) {
+    $subjects = $semester3;
+} elseif ($storedSemester == 4) {
+    $subjects = $semester4;
+}
+
+// Separate subjects into individual variables
+list($subject1, $subject2, $subject3) = $subjects;
+
+// Output each subject
+// echo "Subject 1: $subject1\n";
+// echo "Subject 2: $subject2\n";
+// echo "Subject 3: $subject3\n";
+
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +66,11 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
     <!-- Template Stylesheet -->
     <link href="../Teacher/css/style.css" rel="stylesheet">
     <!--  -->
+    <style>
+        #pills-tab li button#pills-none-tab{
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,46 +103,62 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                     <div class="">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Select subject </h6>
+                            <!-- <h5>Subjects for Semester <?php echo $storedSemester; ?></h5> -->
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="pills-os-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-os" type="button" role="tab" aria-controls="pills-os"
-                                        aria-selected="true">Operating System</button>
+                                    <button class="nav-link active" id="pills-<?php echo $subject1; ?>-tab"
+                                        data-bs-toggle="pill" data-bs-target="#pills-<?php echo $subject1; ?>"
+                                        type="button" role="tab" aria-controls="pills-<?php echo $subject1; ?>"
+                                        aria-selected="true"><?php echo $subject1; ?></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-app-dev-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-app-dev" type="button" role="tab"
-                                        aria-controls="pills-app-dev" aria-selected="false">Application
-                                        Development</button>
+                                    <button class="nav-link" id="pills-<?php echo $subject2; ?>-tab"
+                                        data-bs-toggle="pill" data-bs-target="#pills-<?php echo $subject2; ?>"
+                                        type="button" role="tab" aria-controls="pills-<?php echo $subject2; ?>"
+                                        aria-selected="false"><?php echo $subject2; ?></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-Iot-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-Iot" type="button" role="tab" aria-controls="pills-Iot"
-                                        aria-selected="false">Iot</button>
+                                    <button class="nav-link" id="pills-<?php echo $subject3; ?>-tab"
+                                        data-bs-toggle="pill" data-bs-target="#pills-<?php echo $subject3; ?>"
+                                        type="button" role="tab" aria-controls="pills-<?php echo $subject3; ?>"
+                                        aria-selected="false"><?php echo $subject3; ?></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-Dsa-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-Dsa" type="button" role="tab" aria-controls="pills-Dsa"
-                                        aria-selected="false">Dsa</button>
+                                    <button class="nav-link" id="pills-<?php
+                                    echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                    ?>-tab" data-bs-toggle="pill" data-bs-target="#pills-<?php
+                                    echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                    ?>" type="button" role="tab" aria-controls="pills-<?php
+                                    echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                    ?>" aria-selected="false">
+                                        <?php
+                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                        ?>
+                                    </button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-os" role="tabpanel"
-                                    aria-labelledby="pills-os-tab">
+                                <div class="tab-pane fade show active" id="pills-<?php echo $subject1; ?>"
+                                    role="tabpanel" aria-labelledby="pills-<?php echo $subject1; ?>-tab">
                                     <!-- OS Accordion -->
                                     <div class="bg-light rounded h-100 p-4">
-                                        <div class="accordion accordion-flush" id="accordionFlushExample-os">
+                                        <div class="accordion accordion-flush"
+                                            id="accordionFlushExample-<?php echo $subject1; ?>">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne-os">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingOne-<?php echo $subject1; ?>">
                                                     <button class="accordion-button" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-os"
-                                                        aria-expanded="true" aria-controls="flush-collapseOne-os">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapseOne-<?php echo $subject1; ?>"
+                                                        aria-expanded="true"
+                                                        aria-controls="flush-collapseOne-<?php echo $subject1; ?>">
                                                         LO-1
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseOne-os" class="accordion-collapse collapse show"
-                                                    aria-labelledby="flush-headingOne-os"
-                                                    data-bs-parent="#accordionFlushExample-os">
+                                                <div id="flush-collapseOne-<?php echo $subject1; ?>"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="flush-headingOne-<?php echo $subject1; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject1; ?>">
                                                     <div class="accordion-body">
                                                         Lorem et ea ea consetetur voluptua duo et aliquyam sanctus sit.
                                                         Et dolore at erat amet et diam labore lorem dolores. Erat amet
@@ -119,16 +168,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingTwo-os">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingTwo-<?php echo $subject1; ?>">
                                                     <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo-os"
-                                                        aria-expanded="false" aria-controls="flush-collapseTwo-os">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapseTwo-<?php echo $subject1; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseTwo-<?php echo $subject1; ?>">
                                                         LO-2
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseTwo-os" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingTwo-os"
-                                                    data-bs-parent="#accordionFlushExample-os">
+                                                <div id="flush-collapseTwo-<?php echo $subject1; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingTwo-<?php echo $subject1; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject1; ?>">
                                                     <div class="accordion-body">
                                                         Sea diam dolore aliquyam aliquyam diam et consetetur et. Accusam
                                                         amet no invidunt invidunt et consetetur, magna ut nonumy kasd
@@ -137,17 +190,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingThree-os">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingThree-<?php echo $subject1; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseThree-os" aria-expanded="false"
-                                                        aria-controls="flush-collapseThree-os">
+                                                        data-bs-target="#flush-collapseThree-<?php echo $subject1; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseThree-<?php echo $subject1; ?>">
                                                         LO-3
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseThree-os" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingThree-os"
-                                                    data-bs-parent="#accordionFlushExample-os">
+                                                <div id="flush-collapseThree-<?php echo $subject1; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingThree-<?php echo $subject1; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject1; ?>">
                                                     <div class="accordion-body">
                                                         Sea sea sit sanctus magna gubergren kasd, magna justo ea lorem
                                                         lorem. Elitr aliquyam ipsum clita consetetur duo at nonumy
@@ -157,17 +213,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingFour-os">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingFour-<?php echo $subject1; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseFour-os" aria-expanded="false"
-                                                        aria-controls="flush-collapseFour-os">
+                                                        data-bs-target="#flush-collapseFour-<?php echo $subject1; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseFour-<?php echo $subject1; ?>">
                                                         LO-4
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseFour-os" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingFour-os"
-                                                    data-bs-parent="#accordionFlushExample-os">
+                                                <div id="flush-collapseFour-<?php echo $subject1; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingFour-<?php echo $subject1; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject1; ?>">
                                                     <div class="accordion-body">
                                                         This is the content for the 4th accordion item. You can add any
                                                         content you wish here, such as text, images, or other HTML
@@ -178,24 +237,27 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-app-dev" role="tabpanel"
-                                    aria-labelledby="pills-app-dev-tab">
+                                <div class="tab-pane fade" id="pills-<?php echo $subject2; ?>" role="tabpanel"
+                                    aria-labelledby="pills-<?php echo $subject2; ?>-tab">
                                     <!-- App Dev Accordion -->
                                     <div class="bg-light rounded h-100 p-4">
-                                        <div class="accordion accordion-flush" id="accordionFlushExample-app-dev">
+                                        <div class="accordion accordion-flush"
+                                            id="accordionFlushExample-<?php echo $subject2; ?>">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne-app-dev">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingOne-<?php echo $subject2; ?>">
                                                     <button class="accordion-button" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseOne-app-dev" aria-expanded="true"
-                                                        aria-controls="flush-collapseOne-app-dev">
+                                                        data-bs-target="#flush-collapseOne-<?php echo $subject2; ?>"
+                                                        aria-expanded="true"
+                                                        aria-controls="flush-collapseOne-<?php echo $subject2; ?>">
                                                         LO-1
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseOne-app-dev"
+                                                <div id="flush-collapseOne-<?php echo $subject2; ?>"
                                                     class="accordion-collapse collapse show"
-                                                    aria-labelledby="flush-headingOne-app-dev"
-                                                    data-bs-parent="#accordionFlushExample-app-dev">
+                                                    aria-labelledby="flush-headingOne-<?php echo $subject2; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject2; ?>">
                                                     <div class="accordion-body">
                                                         Lorem et ea ea consetetur voluptua duo et aliquyam sanctus sit.
                                                         Et dolore at erat amet et diam labore lorem dolores. Erat amet
@@ -205,17 +267,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingTwo-app-dev">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingTwo-<?php echo $subject2; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseTwo-app-dev"
-                                                        aria-expanded="false" aria-controls="flush-collapseTwo-app-dev">
+                                                        data-bs-target="#flush-collapseTwo-<?php echo $subject2; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseTwo-<?php echo $subject2; ?>">
                                                         LO-2
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseTwo-app-dev" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingTwo-app-dev"
-                                                    data-bs-parent="#accordionFlushExample-app-dev">
+                                                <div id="flush-collapseTwo-<?php echo $subject2; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingTwo-<?php echo $subject2; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject2; ?>">
                                                     <div class="accordion-body">
                                                         Sea diam dolore aliquyam aliquyam diam et consetetur et. Accusam
                                                         amet no invidunt invidunt et consetetur, magna ut nonumy kasd
@@ -224,19 +289,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingThree-app-dev">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingThree-<?php echo $subject2; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseThree-app-dev"
+                                                        data-bs-target="#flush-collapseThree-<?php echo $subject2; ?>"
                                                         aria-expanded="false"
-                                                        aria-controls="flush-collapseThree-app-dev">
+                                                        aria-controls="flush-collapseThree-<?php echo $subject2; ?>">
                                                         LO-3
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseThree-app-dev"
+                                                <div id="flush-collapseThree-<?php echo $subject2; ?>"
                                                     class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingThree-app-dev"
-                                                    data-bs-parent="#accordionFlushExample-app-dev">
+                                                    aria-labelledby="flush-headingThree-<?php echo $subject2; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject2; ?>">
                                                     <div class="accordion-body">
                                                         Sea sea sit sanctus magna gubergren kasd, magna justo ea lorem
                                                         lorem. Elitr aliquyam ipsum clita consetetur duo at nonumy
@@ -246,18 +312,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingFour-app-dev">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingFour-<?php echo $subject2; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseFour-app-dev"
+                                                        data-bs-target="#flush-collapseFour-<?php echo $subject2; ?>"
                                                         aria-expanded="false"
-                                                        aria-controls="flush-collapseFour-app-dev">
+                                                        aria-controls="flush-collapseFour-<?php echo $subject2; ?>">
                                                         LO-4
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseFour-app-dev" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingFour-app-dev"
-                                                    data-bs-parent="#accordionFlushExample-app-dev">
+                                                <div id="flush-collapseFour-<?php echo $subject2; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingFour-<?php echo $subject2; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject2; ?>">
                                                     <div class="accordion-body">
                                                         This is the content for the 4th accordion item. You can add any
                                                         content you wish here, such as text, images, or other HTML
@@ -268,23 +336,27 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-Iot" role="tabpanel"
-                                    aria-labelledby="pills-Iot-tab">
-                                    <!-- Iot Accordion -->
+                                <div class="tab-pane fade" id="pills-<?php echo $subject3; ?>" role="tabpanel"
+                                    aria-labelledby="pills-<?php echo $subject3; ?>-tab">
+                                    <!-- <?php echo $subject3; ?> Accordion -->
                                     <div class="bg-light rounded h-100 p-4">
-                                        <div class="accordion accordion-flush" id="accordionFlushExample-Iot">
+                                        <div class="accordion accordion-flush"
+                                            id="accordionFlushExample-<?php echo $subject3; ?>">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne-Iot">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingOne-<?php echo $subject3; ?>">
                                                     <button class="accordion-button" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseOne-Iot" aria-expanded="true"
-                                                        aria-controls="flush-collapseOne-Iot">
+                                                        data-bs-target="#flush-collapseOne-<?php echo $subject3; ?>"
+                                                        aria-expanded="true"
+                                                        aria-controls="flush-collapseOne-<?php echo $subject3; ?>">
                                                         LO-1
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseOne-Iot" class="accordion-collapse collapse show"
-                                                    aria-labelledby="flush-headingOne-Iot"
-                                                    data-bs-parent="#accordionFlushExample-Iot">
+                                                <div id="flush-collapseOne-<?php echo $subject3; ?>"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="flush-headingOne-<?php echo $subject3; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject3; ?>">
                                                     <div class="accordion-body">
                                                         Lorem et ea ea consetetur voluptua duo et aliquyam sanctus sit.
                                                         Et dolore at erat amet et diam labore lorem dolores.
@@ -292,17 +364,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingTwo-Iot">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingTwo-<?php echo $subject3; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseTwo-Iot" aria-expanded="false"
-                                                        aria-controls="flush-collapseTwo-Iot">
+                                                        data-bs-target="#flush-collapseTwo-<?php echo $subject3; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseTwo-<?php echo $subject3; ?>">
                                                         LO-2
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseTwo-Iot" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingTwo-Iot"
-                                                    data-bs-parent="#accordionFlushExample-Iot">
+                                                <div id="flush-collapseTwo-<?php echo $subject3; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingTwo-<?php echo $subject3; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject3; ?>">
                                                     <div class="accordion-body">
                                                         Sea diam dolore aliquyam aliquyam diam et consetetur et. Accusam
                                                         amet no invidunt invidunt et consetetur.
@@ -310,17 +385,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingThree-Iot">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingThree-<?php echo $subject3; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseThree-Iot" aria-expanded="false"
-                                                        aria-controls="flush-collapseThree-Iot">
+                                                        data-bs-target="#flush-collapseThree-<?php echo $subject3; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseThree-<?php echo $subject3; ?>">
                                                         LO-3
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseThree-Iot" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingThree-Iot"
-                                                    data-bs-parent="#accordionFlushExample-Iot">
+                                                <div id="flush-collapseThree-<?php echo $subject3; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingThree-<?php echo $subject3; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject3; ?>">
                                                     <div class="accordion-body">
                                                         Sea sea sit sanctus magna gubergren kasd, magna justo ea lorem
                                                         lorem.
@@ -328,17 +406,20 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingFour-Iot">
+                                                <h2 class="accordion-header"
+                                                    id="flush-headingFour-<?php echo $subject3; ?>">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseFour-Iot" aria-expanded="false"
-                                                        aria-controls="flush-collapseFour-Iot">
+                                                        data-bs-target="#flush-collapseFour-<?php echo $subject3; ?>"
+                                                        aria-expanded="false"
+                                                        aria-controls="flush-collapseFour-<?php echo $subject3; ?>">
                                                         LO-4
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseFour-Iot" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingFour-Iot"
-                                                    data-bs-parent="#accordionFlushExample-Iot">
+                                                <div id="flush-collapseFour-<?php echo $subject3; ?>"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="flush-headingFour-<?php echo $subject3; ?>"
+                                                    data-bs-parent="#accordionFlushExample-<?php echo $subject3; ?>">
                                                     <div class="accordion-body">
                                                         This is the content for the 4th accordion item. You can add any
                                                         content you wish here, such as text, images, or other HTML
@@ -349,23 +430,38 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-Dsa" role="tabpanel"
-                                    aria-labelledby="pills-Dsa-tab">
-                                    <!-- Dsa Accordion -->
+                                <div class="tab-pane fade" id="pills-<?php
+                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                ?>" role="tabpanel" aria-labelledby="pills-<?php
+                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                ?>-tab">
+                                    <!-- <?php
+                                    echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                    ?> Accordion -->
                                     <div class="bg-light rounded h-100 p-4">
-                                        <div class="accordion accordion-flush" id="accordionFlushExample-Dsa">
+                                        <div class="accordion accordion-flush" id="accordionFlushExample-<?php
+                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                        ?>">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne-Dsa">
+                                                <h2 class="accordion-header" id="flush-headingOne-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <button class="accordion-button" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseOne-Dsa" aria-expanded="true"
-                                                        aria-controls="flush-collapseOne-Dsa">
+                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>" aria-expanded="true" aria-controls="flush-collapseOne-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>">
                                                         LO-1
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseOne-Dsa" class="accordion-collapse collapse show"
-                                                    aria-labelledby="flush-headingOne-Dsa"
-                                                    data-bs-parent="#accordionFlushExample-Dsa">
+                                                <div id="flush-collapseOne-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" data-bs-parent="#accordionFlushExample-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <div class="accordion-body">
                                                         Lorem et ea ea consetetur voluptua duo et aliquyam sanctus sit.
                                                         Et dolore at erat amet et diam labore lorem dolores.
@@ -373,17 +469,25 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingTwo-Dsa">
+                                                <h2 class="accordion-header" id="flush-headingTwo-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseTwo-Dsa" aria-expanded="false"
-                                                        aria-controls="flush-collapseTwo-Dsa">
+                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>" aria-expanded="false" aria-controls="flush-collapseTwo-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>">
                                                         LO-2
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseTwo-Dsa" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingTwo-Dsa"
-                                                    data-bs-parent="#accordionFlushExample-Dsa">
+                                                <div id="flush-collapseTwo-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" data-bs-parent="#accordionFlushExample-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <div class="accordion-body">
                                                         Sea diam dolore aliquyam aliquyam diam et consetetur et. Accusam
                                                         amet no invidunt invidunt et consetetur.
@@ -391,17 +495,25 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingThree-Dsa">
+                                                <h2 class="accordion-header" id="flush-headingThree-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseThree-Dsa" aria-expanded="false"
-                                                        aria-controls="flush-collapseThree-Dsa">
+                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseThree-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>" aria-expanded="false" aria-controls="flush-collapseThree-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>">
                                                         LO-3
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseThree-Dsa" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingThree-Dsa"
-                                                    data-bs-parent="#accordionFlushExample-Dsa">
+                                                <div id="flush-collapseThree-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingThree-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" data-bs-parent="#accordionFlushExample-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <div class="accordion-body">
                                                         Sea sea sit sanctus magna gubergren kasd, magna justo ea lorem
                                                         lorem.
@@ -409,17 +521,25 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
                                                 </div>
                                             </div>
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingFour-Dsa">
+                                                <h2 class="accordion-header" id="flush-headingFour-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseFour-Dsa" aria-expanded="false"
-                                                        aria-controls="flush-collapseFour-Dsa">
+                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseFour-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>" aria-expanded="false" aria-controls="flush-collapseFour-<?php
+                                                        echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                        ?>">
                                                         LO-4
                                                     </button>
                                                 </h2>
-                                                <div id="flush-collapseFour-Dsa" class="accordion-collapse collapse"
-                                                    aria-labelledby="flush-headingFour-Dsa"
-                                                    data-bs-parent="#accordionFlushExample-Dsa">
+                                                <div id="flush-collapseFour-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingFour-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>" data-bs-parent="#accordionFlushExample-<?php
+                                                echo isset($subject4) && !empty($subject4) ? $subject4 : 'none';
+                                                ?>">
                                                     <div class="accordion-body">
                                                         This is the content for the 4th accordion item. You can add any
                                                         content you wish here, such as text, images, or other HTML
@@ -471,6 +591,7 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'student') {
 
     <!-- Template Javascript -->
     <script src="../Teacher/js/main.js"></script>
+    <!-- <script src="../Teacher/js/for_Subject.php"></script> -->
 </body>
 
 </html>

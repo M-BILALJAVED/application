@@ -12,8 +12,35 @@
                 </div>
             </div>
             <div class="ms-3">
-                <h6 class="mb-0">Bilal Javed</h6>
-                <span>Student</span>
+                <h6 class="mb-0">
+                <?php
+                    // Assuming the session variable 'student_name' is already set
+                    if (isset($_SESSION['student_name'])) {
+                        echo $_SESSION['student_name'];
+                    } else {
+                        echo "student_name information not available.";
+                    }
+                    ?>
+                </h6>
+                <span>
+                <?php
+                    // Assuming the session variable 'Semester' is already set
+                    if (isset($_SESSION['role'])) {
+                        echo $_SESSION['role'];
+                    } else {
+                        echo "role information not available.";
+                    }
+                    ?>
+                </span>
+                <br>
+                <span><?php
+                    // Assuming the session variable 'Semester' is already set
+                    if (isset($_SESSION['Semester'])) {
+                        echo "Semester: " . $_SESSION['Semester'];
+                    } else {
+                        echo "Semester information not available.";
+                    }
+                    ?></span>
             </div>
         </div>
         <div class="navbar-nav w-100">
