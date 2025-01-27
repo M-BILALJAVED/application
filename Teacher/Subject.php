@@ -79,6 +79,7 @@ if (!isset($_SESSION['Teacher_name']) || $_SESSION['role'] !== 'teacher') {
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
+                                        <option value="4">Four</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
@@ -86,13 +87,31 @@ if (!isset($_SESSION['Teacher_name']) || $_SESSION['role'] !== 'teacher') {
                                     <input class="form-control" list="datalistOptions" id="studentID"
                                         placeholder="Type to search...">
                                     <datalist id="datalistOptions">
-                                        <option value="San Francisco">
-                                        <option value="New York">
-                                        <option value="Seattle">
-                                        <option value="Los Angeles">
-                                        <option value="Chicago">
+                                        <!-- PHP loop for options here -->
+                                        <?php
+                                        // Database connection
+                                        include '../DB_CONNECT.php'; // Replace with your database connection file
+                                        
+                                        // Query to fetch student_id from the student_info table
+                                        $query = "SELECT student_id FROM students_info";
+                                        $result = mysqli_query($conn, $query);
+
+                                        // Loop through the result set and populate the datalist
+                                        if ($result) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo "<option value='" . htmlspecialchars($row['student_id']) . "'></option>";
+                                            }
+                                        } else {
+                                            echo "<option value='No Data Found'></option>";
+                                        }
+
+                                        // Close the database connection
+                                        mysqli_close($conn);
+                                        ?>
                                     </datalist>
+
                                 </div>
+
                                 <div class="row mt-2">
                                     <div class="col-6 text-center">
                                         <button type="button" id="tacher_studentKa_fetch" class="btn btn-primary">Fetch

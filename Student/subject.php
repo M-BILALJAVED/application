@@ -8,7 +8,7 @@ if (!isset($_SESSION['student_name']) || $_SESSION['role'] !== 'student') {
 <!-- fetch sucject books -->
 <?php
 
-include "admin/D_Admin/Books.php";
+include "../admin/D_Admin/Books.php";
 
 $storedSemester = $_SESSION['Semester'];
 $subjects = []; // Initialize an empty array to hold subjects
