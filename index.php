@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include 'admin/db_connection.php';
+include 'DB_CONNECT.php';
 
 session_start();
 

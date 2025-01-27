@@ -9,7 +9,7 @@ if (!isset($_COOKIE['userNypasssailagya']) || $_COOKIE['userNypasssailagya'] != 
 }
 
 // Include the database connection file
-include '../db_connection.php';
+include 'DB_CONNECT.php';
 
 if (!isset($conn)) {
     die("Database connection not established.");
