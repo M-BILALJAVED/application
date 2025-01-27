@@ -121,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <span class="text">Recent Activity</span>
                         </div>
 
+
                         <table class="table">
                             <thead>
                                 <tr style="background: lightgray;">

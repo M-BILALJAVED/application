@@ -1,29 +1,32 @@
 <?php
-// DB connection
+// Include the database connection
 include 'DB_CONNECT.php';
 
-// Check if the studentID is provided
-if (isset($_GET['studentID'])) {
-    $studentID = $_GET['studentID'];
+// Check if student_id is provided
+if (isset($_GET['student_id'])) {
+    $student_id = $_GET['student_id'];
 
-    // Delete the student from the database
-    $sql = "DELETE FROM students_info WHERE student_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $studentID);
+    // Prepare SQL DELETE query
+    $sql = "DELETE FROM Students_info WHERE student_id = ?";
     
+    // Use prepared statements for security
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $student_id);
+
     if ($stmt->execute()) {
-        // Redirect to the students list page after successful deletion
-        header("Location: students.php?message=Student deleted successfully!");
-        exit;
+        // Redirect back to the dashboard with a success message
+        header("Location: index.php?message=Student+deleted+successfully");
     } else {
-        echo "Error deleting student.";
+        // Redirect back with an error message
+        header("Location: index.php?message=Error+deleting+student");
     }
 
+    // Close statement and connection
     $stmt->close();
+    $conn->close();
 } else {
-    echo "Student ID not provided.";
+    // Redirect if student_id is not set
+    header("Location: index.php?message=Invalid+Request");
 }
-
-// Close the database connection
-$conn->close();
+exit;
 ?>

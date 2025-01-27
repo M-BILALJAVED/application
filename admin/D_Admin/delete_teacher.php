@@ -13,7 +13,7 @@ if (isset($_GET['teacherID'])) {
     
     if ($stmt->execute()) {
         echo "Teacher deleted successfully!";
-        header("Location: teachers.php"); // Redirect to the teachers list page
+        header("Location: Dash_Teacher.php"); // Redirect to the teachers list page
     } else {
         echo "Error deleting teacher.";
     }
