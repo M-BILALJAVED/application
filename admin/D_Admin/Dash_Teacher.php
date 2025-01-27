@@ -53,12 +53,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard Panel</title>
+    <title>Teacher -Admin Dashboard Panel</title>
 
-    <!-- CSS -->
+    <!----======== CSS ======== -->
     <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- lineicons -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        tr th {
+            background-color: lightgray !important;
+        }
+
+        td {
+            border: 1px solid lightsteelblue;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -92,6 +118,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <span class="text">Recent Activity</span>
                         </div>
                         <!-- Add Activity Table Here -->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Teacher ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Password</th> <!-- Added Password column -->
+                                    <th>Subject</th>
+                                    <th>Phone</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                include 'DB_CONNECT.php'; // Include your DB connection file
+                                
+                                // Fetch data from the teacher_info table
+                                $sql = "SELECT * FROM teacher_info";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        // Get teacher ID for editing and deleting
+                                        $teacherID = $row['TeacherID'];
+                                        echo "<tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['TeacherID']}</td>
+                    <td>{$row['Name']}</td>
+                    <td>{$row['Email']}</td>
+                    <td>**********</td> 
+                    <td>{$row['Subject']}</td>
+                    <td>{$row['Phone']}</td>
+                    <td>
+                        <!-- Edit button triggers modal -->
+                        <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editTeacherModal'
+                                data-teacherid='{$row['TeacherID']}'
+                                data-name='{$row['Name']}'
+                                data-email='{$row['Email']}'
+                                data-password='{$row['Password']}'
+                                data-subject='{$row['Subject']}'
+                                data-phone='{$row['Phone']}'>
+                            Edit
+                        </button>
+                        <a href='delete_teacher.php?teacherID=$teacherID' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this teacher?\");'>
+                            Delete
+                        </a>
+                    </td>
+                </tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='8'>No data found</td></tr>";
+                                }
+                                $conn->close();
+                                ?>
+                            </tbody>
+                        </table>
+
+
+
                     </div>
                 </div>
             </section>
@@ -154,8 +240,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
+    <!-- ========== Start update in sql ========== -->
+    <!-- Edit Teacher Modal -->
+    <div class="modal fade" id="editTeacherModal" tabindex="-1" aria-labelledby="editTeacherModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTeacherModalLabel">Edit Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form to Edit Teacher Details -->
+                    <form id="editTeacherForm" method="POST" action="update_teacher.php">
+                        <input type="hidden" name="TeacherID" id="modalTeacherID">
+
+                        <div class="mb-3">
+                            <label for="modalName" class="form-label">Name</label>
+                            <input type="text" name="Name" class="form-control" id="modalName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalEmail" class="form-label">Email Address</label>
+                            <input type="email" name="Email" class="form-control" id="modalEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalPassword" class="form-label">Password</label>
+                            <input type="password" name="Password" class="form-control" id="modalPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalSubject" class="form-label">Subject</label>
+                            <input type="text" name="Subject" class="form-control" id="modalSubject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalPhone" class="form-label">Phone Number</label>
+                            <input type="tel" name="Phone" class="form-control" id="modalPhone" pattern="[0-9]{10}"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== End update in sql ========== -->
+
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Add event listener to handle the modal data
+        var editModal = document.getElementById('editTeacherModal');
+        editModal.addEventListener('show.bs.modal', function (event) {
+            // Get the button that triggered the modal
+            var button = event.relatedTarget;
+
+            // Extract information from data-* attributes
+            var teacherID = button.getAttribute('data-teacherid');
+            var name = button.getAttribute('data-name');
+            var email = button.getAttribute('data-email');
+            var subject = button.getAttribute('data-subject');
+            var phone = button.getAttribute('data-phone');
+
+            // Populate the modal fields with the teacher data
+            document.getElementById('modalTeacherID').value = teacherID;
+            document.getElementById('modalName').value = name;
+            document.getElementById('modalEmail').value = email;
+            document.getElementById('modalSubject').value = subject;
+            document.getElementById('modalPhone').value = phone;
+        });
+
+    </script>
+
+    </script>
+
 </body>
 
 </html>
